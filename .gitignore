@@ -216,3 +216,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# React / Vite / Node
+node_modules/
+.pnpm-store/
+.env.local
+
+# Temporary work files
+tmp/
+.DS_Store
+Thumbs.db
