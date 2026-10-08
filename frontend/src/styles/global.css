@@ -248,3 +248,6 @@ footer { min-height: 84px; padding: 0 max(5vw, calc((100vw - 1240px) / 2)); disp
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.toolbar {flex-wrap: wrap;}
+.filter-group { display : flex; gap: .5rem; }
