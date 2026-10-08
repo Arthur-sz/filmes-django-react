@@ -15,6 +15,7 @@ export default function App() {
   const [resumo, setResumo] = useState([])
   const [busca, setBusca] = useState('')
   const [ordem, setOrdem] = useState('recentes')
+  const [filtroStatus, setFiltroStatus] = useState('todos')
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState('')
   const [formularioAberto, setFormularioAberto] = useState(false)
@@ -54,12 +55,18 @@ export default function App() {
   }, [toast])
 
   const filmesOrdenados = useMemo(() => {
-    return [...filmes].sort((a, b) => {
+    const filmesFiltrados = filmes.filter((filme) => {
+      if (filtroStatus === `assistidos`) return filme.assistido
+      if (filtroStatus === `nao-assistidos`) return !filme.assistido
+      return true
+    })
+      
+    return [...filmesFiltrados].sort((a, b) => {
       if (ordem === 'titulo') return a.titulo.localeCompare(b.titulo, 'pt-BR')
       if (ordem === 'antigos') return a.ano - b.ano
       return b.ano - a.ano
     })
-  }, [filmes, ordem])
+  }, [filmes, ordem, filtroStatus])
 
   const totalAssistidos = resumo.filter((filme) => filme.assistido).length
 
@@ -113,7 +120,7 @@ export default function App() {
             <p>Dos clássicos inesquecíveis às próximas descobertas.</p>
           </div>
 
-          <SearchToolbar busca={busca} aoBuscar={setBusca} ordem={ordem} aoOrdenar={setOrdem} total={filmes.length} />
+          <SearchToolbar busca={busca} aoBuscar={setBusca} filtro={filtroStatus} aoFiltrar={setFiltroStatus} ordem={ordem} aoOrdenar={setOrdem} total={filmes.length} />
           <FilmeList
             filmes={filmesOrdenados}
             carregando={carregando}
